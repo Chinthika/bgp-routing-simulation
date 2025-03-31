@@ -1,0 +1,43 @@
+version: '3'
+services:
+  router1:
+    build: .
+    hostname: router1
+    privileged: true
+    volumes:
+      - ./conf/router1/etc/bird:/etc/bird
+    networks:
+      peeringbr1:
+        ipv4_address: 10.0.0.10
+      peeringbr2:
+        ipv4_address: 10.0.100.10
+  router2:
+    build: .
+    hostname: router2
+    privileged: true
+    volumes:
+      - ./conf/router2/etc/bird:/etc/bird
+    networks:
+      peeringbr1:
+        ipv4_address: 10.0.0.11
+  router3:
+    build: .
+    hostname: router3
+    privileged: true
+    volumes:
+      - ./conf/router3/etc/bird:/etc/bird
+    networks:
+      peeringbr2:
+        ipv4_address: 10.0.100.11
+
+networks:
+  peeringbr1:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: '10.0.0.0/24'
+  peeringbr2:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: '10.0.100.0/24'
