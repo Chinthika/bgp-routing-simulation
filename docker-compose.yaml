@@ -9,8 +9,6 @@ services:
     networks:
       peeringbr1:
         ipv4_address: 10.0.0.10
-      peeringbr2:
-        ipv4_address: 10.0.100.10
   router2:
     build: .
     hostname: router2
@@ -28,7 +26,7 @@ services:
       - ./conf/router3/etc/bird:/etc/bird
     networks:
       peeringbr2:
-        ipv4_address: 10.0.100.11
+        ipv4_address: 10.0.0.12
 
 networks:
   peeringbr1:
@@ -36,8 +34,3 @@ networks:
     ipam:
      config:
        - subnet: '10.0.0.0/24'
-  peeringbr2:
-    driver: bridge
-    ipam:
-     config:
-       - subnet: '10.0.100.0/24'
